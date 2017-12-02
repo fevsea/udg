@@ -1,0 +1,8 @@
+django
+djangorestframework
+coreapi
+django-filter
+drf_openapi
+django-rest-swagger
+pyfcm
+xbee
