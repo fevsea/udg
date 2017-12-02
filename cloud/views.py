@@ -26,24 +26,23 @@ def get_door():
     return door[0]
 
 
-class pin(APIView):
-    def get(self, request):
+class pinV(APIView):
+    parser_classes = (JSONParser,)
+
+    def get(self, request, pin=None):
         qs = Profile.objects.all()
         serializer = ProfileSerializer(qs, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        data = JSONParser().parse(request)
-        serializer = PinSerializer(data=data)
-        if serializer.is_valid():
-            pin = serializer.data["pin"]
-            user = Profile.objects.filter(pin=pin)
-            if not user.exists():
-                JsonResponse(serializer.data, status=403)
-
-
-
-        return JsonResponse(serializer.errors, status=400)
-
+        pin= request.data["pin"]
+        if pin is None:
+            Response(status=5000)
+        user = Profile.objects.filter(pin=pin)
+        if not user.exists():
+            return Response(status=403)
+        else:
+            serializer = ProfileSerializer(user[0], many=False)
+            return Response(serializer.data)
 
 

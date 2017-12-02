@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from rest_framework.schemas import get_schema_view
 
 from cloud import views
+schema_view = get_schema_view(title='API')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index.as_view()),
-    url(r'^pin/$', views.pin.as_view()),
+    url(r'^pin/$', views.pinV.as_view()),
+    url(r'^schema/$', schema_view),
 ]

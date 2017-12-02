@@ -16,4 +16,4 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ("pin", "username")
 
 class PinSerializer(serializers.Serializer):
-    pin = serializers.IntegerField(required=True)
+    pin = serializers.CharField(required=True)
