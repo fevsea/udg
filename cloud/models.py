@@ -8,3 +8,26 @@ class Profile(models.Model):
 
 class Door(models.Model):
     open = models.BooleanField(default=False)
+
+class Log(models.Model):
+    datetime = models.DateTimeField(auto_now_add=True)
+    usuari   = models.ForeignKey(Profile, null=True)
+    portaOberta = models.NullBooleanField(null=True)
+    contrasenyaValida = models.NullBooleanField(null=True)
+
+    @property
+    def get_username(self):
+        if self.usuari is None:
+            return None
+        return self.usuari.user.username
+
+    def __str__(self):
+        if self.contrasenyaValida is None:
+            if self.portaOberta:
+                return "Porta oberta"
+            return "Porta tancada"
+        else:
+            if self.contrasenyaValida:
+                return self.usuari.user.username + " ha obert la porta"
+            return "Pin incorrecte"
+        return "Log entry"

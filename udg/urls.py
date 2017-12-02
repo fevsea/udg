@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^$', views.index.as_view()),
     url(r'^pin/$', views.pinV.as_view()),
     url(r'^schema/$', schema_view),
+    url(r'^log/$', views.logV.as_view()),
 ]
