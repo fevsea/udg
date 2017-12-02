@@ -6,3 +6,5 @@ drf_openapi
 django-rest-swagger
 pyfcm
 xbee
+python-telegram-bot
+requests
