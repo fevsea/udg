@@ -27,9 +27,9 @@ void checkDoorState() {
     doorState = currentState;
     
     if(currentState == 0) {
-      Serial.println("Door is open");
+      Serial.println("{\"1\":\"Door is open\"}");
     } else if(currentState == 1) {
-      Serial.println("Door is closed");
+      Serial.println("{\"2\":\"Door is closed\"}");
     }
     Serial.flush();
   }
@@ -53,18 +53,18 @@ void checkPinCode() {
     while (key != '#') {
       if (isNumber(key)) {
         password = password + key;
-        Serial.println(password);
       }
       key = keypad.getKey();
-      delay(200);
     }
     
     Serial.println("{\"3\":\"" + password + "\"}");
     Serial.flush();
 
-//    if (Serial.available() > 0) {
-//      
-//    }
+    String response = "";
+    while (response != "{\"4\":\"OK\"}") {
+      response = Serial.readString();
+    }
+    Serial.println("OUT OF LOOP");
   }
 }
 
@@ -86,5 +86,5 @@ void loop() {
   //2.- Read keyboard pin and verify code
   checkPinCode();
   
-  delay(500);
+  delay(200);
 }
